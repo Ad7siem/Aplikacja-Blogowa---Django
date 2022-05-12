@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% block title %}{{ object.title }}{% endblock  %}
+
+{% block content %}
+<a href='{% url "blog:post_list"%}'> Back to list </a>
+<a href='{% url "blog:post_update" object.slug %}'> Update </a>
+<a href='{% url "blog:post_delete" object.slug %}'> Delete </a>
+
+<h1>Post Deatil</h1>
+<ul>
+    {{ object.title }}
+    {{ object.subhead }}
+    {{ object.slug }}
+
+    {{ object.status }}
+    {{ object.created_by }}
+    {{ object.created_date }}
+    {{ object.update_date }}
+    {{ object.publish_date }}
+</uk>
+<ul>
+    {{ object.body }}
+</ul>
+{% endblock  %}
