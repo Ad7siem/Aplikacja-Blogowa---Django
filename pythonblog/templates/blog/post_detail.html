@@ -1,24 +1,48 @@
-{% extends 'base/base.html' %}
-{% block title %}{{ object.title }}{% endblock  %}
-
+{% extends 'base/base.html' %} {% load static %}
 {% block content %}
-<a href='{% url "blog:post_list"%}'> Back to list </a>
-<a href='{% url "blog:post_update" object.slug %}'> Update </a>
-<a href='{% url "blog:post_delete" object.slug %}'> Delete </a>
+<!-- Page Header-->
+<header class="masthead" style="background-image: url('/media/post-bg.jpg')">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="post-heading">
+                    <h1>{{object.title}}</h1>
+                    <h2 class="subheading">{{object.subhead}}</h2>
+                    <span class="meta">
+                        Posted by
+                        <a href="#!">{{object.created_by}}</a>
+                        {{object.publish_date}}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-<h1>Post Deatil</h1>
-<ul>
-    {{ object.title }}
-    {{ object.subhead }}
-    {{ object.slug }}
+{% if user.is_authenticated %}
+<div class='card my-5 py-4 text-center'>
+    <div class='card-body'>
+        <a href='{% url "blog:post_list"%}' class="btn btn-primary"> Back to list </a>
+        <a href='{% url "blog:post_update" object.slug %}'class="btn btn-primary"> Update </a>
+        <a href='{% url "blog:post_delete" object.slug %}'class="btn btn-danger"> Delete </a>
+    </div>
+</div>
+{% endif %}
 
-    {{ object.status }}
-    {{ object.created_by }}
-    {{ object.created_date }}
-    {{ object.update_date }}
-    {{ object.publish_date }}
-</uk>
-<ul>
-    {{ object.body }}
-</ul>
+<!-- Post Content-->
+<article class="mb-4">
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {{ object.body | linebreaks}}
+                <p>
+                    More information
+                    <a href="https://docs.python.org/3/">Python Documentation</a>
+                    &middot; and
+                    <a href="https://docs.djangoproject.com/en/4.0/">Django Documentation</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</article>
 {% endblock  %}
